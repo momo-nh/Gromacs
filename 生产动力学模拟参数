@@ -1,0 +1,50 @@
+integrator          = md
+dt                  = 0.002 ; ps !;according to Bjelkmar P et al
+nsteps              = 50000000
+nstcomm             = 100    ; ours
+nstcalcenergy       = 100    ; ours
+nstxout             = 1000     ; collect data every 0.5 ps
+nstvout             = 1000
+nstenergy           = 1000
+nstlog              = 1000
+nstlist             = 10 ;according to Bjelkmar P et al
+ns-type             = grid ;ours
+cutoff-scheme       = Verlet ;according to GROMACS proposal
+vdw-modifier        = force-switch
+rlist               = 1.2 ;according to GROMACS proposal
+rvdw                = 1.2 ;according to Bjelkmar P et al ;according to GROMACS proposal
+rvdw-switch         = 1.0 ;according to Bjelkmar P et al
+coulombtype         = PME ;according to Bjelkmar P et al
+rcoulomb            = 1.2 ;according to Bjelkmar P et al
+DispCorr            = EnerPres  ;according to GROMACS proposal
+vdwtype             = cut-off ;according to GROMACS proposal,question?
+fourierspacing      = 0.12
+fourier-nx          = 0
+fourier-ny          = 0
+fourier-nz          = 0
+pme-order           = 4
+
+; Berendsen temperature coupling is on
+Tcoupl              = v-rescale ;according to Bjelkmar P et al
+tau-t               = 0.1     0.1  ;according to Bjelkmar P et al
+tc-grps             = protein     non-protein
+ref-t               = 300         300
+; Pressure coupling is on
+Pcoupl              = parrinello-rahman ;according to Bjelkmar P et al
+Pcoupltype          = isotropic ;according to Bjelkmar P et al
+tau-p               = 2.0 ;according to Bjelkmar P et al
+refcoord-scaling    = all ;ours
+compressibility     = 4.5e-5 ;ours
+ref-p               = 1.0 ;ours
+pbc                 = xyz ;according to Bjelkmar P et al
+; Generate velocites is on at 300 K.
+gen-vel             = yes ;
+gen-temp            = 300.0 ;ours
+gen-seed            = -1 ;ours
+; OPTIONS FOR BONDS, according to 1omb.pdb tutorial
+constraints              = all-bonds
+continuation             = no          ; continuation from NPT PR
+constraint-algorithm     = lincs        ; holonomic constraints
+lincs-iter               = 1            ; accuracy of LINCS
+lincs-order              = 4            ; also related to accuracy
+
